@@ -24,19 +24,23 @@
           v-model="group"
           active-class="green lighten-1"
         >
+        <router-link to="/">
           <v-list-item>
             <v-list-item-icon>
               <v-icon>mdi-home</v-icon>
             </v-list-item-icon>
             <v-list-item-title>Início</v-list-item-title>
           </v-list-item>
+        </router-link>
 
+        <router-link to="/classificacao">
           <v-list-item>
             <v-list-item-icon>
               <v-icon>mdi-soccer</v-icon>
             </v-list-item-icon>
             <v-list-item-title>Classificação</v-list-item-title>
           </v-list-item>
+        </router-link>
         </v-list-item-group>
       </v-list>
     </v-navigation-drawer>
@@ -53,3 +57,10 @@ export default {
   }),
 }
 </script>
+
+<style scoped>
+.app-top-bar a{
+    text-decoration: none;
+}
+</style>
+
