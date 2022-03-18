@@ -7,21 +7,26 @@
     <template v-slot:default>
       <thead>
         <tr>
-          <th class="text-left">
-            Name
+          <th colspan="2" class="text-left">
+            Clubes
           </th>
-          <th class="text-left">
-            Calories
+          <th class="text-right">
+            Pontos
           </th>
         </tr>
       </thead>
       <tbody>
-        <tr
-          v-for="item in desserts"
-          :key="item.name"
-        >
-          <td>{{ item.name }}</td>
-          <td>{{ item.calories }}</td>
+        <tr v-for="(clube, index) of clubesListaOrdenada" :key="clube.id">
+          <td>{{ index + 1 }}</td>
+          <td>
+                <v-avatar size="24">
+                  <img
+                  :src="clube.escudo"
+                  :alt="clube.nome">
+                </v-avatar>
+            <span class="pl-2">{{ clube.nome }}</span>
+            </td>
+          <td class="text-right pr-6" >{{ clube.pontos }}</td>
         </tr>
       </tbody>
     </template>
@@ -31,17 +36,27 @@
 
 <script>
 export default {
-    name: 'ClubesLista'
-    data () {
-        return:
-            clubeslista: []
+  name: 'ClubesLista',
+  data() {
+    return {
+      clubesLista: []
     }
-    created() {
-        fetch('https://hackthon-decola.firebaseio.com/clubes-lista.json')
-            .then(resposta => resposta.json())
-            .then(json => {
-                this.clubeslista = json
-            });
+  },
+  computed: {
+      clubesListaOrdenada() {
+        const listaOrdenada = this.clubesLista.slice(0).sort(
+          (a,b) => a.pontos > b.pontos ? -1 : 1
+          //alterador ternário
+        );
+        return listaOrdenada;
+      }
+  },
+  created() {
+    fetch('https://hackthon-decola.firebaseio.com/clubes-lista.json')
+      .then(response => response.json())
+      .then(json => {
+        this.clubesLista = json;
+      })
             console.log(this.clubeslista);
     }
 }
